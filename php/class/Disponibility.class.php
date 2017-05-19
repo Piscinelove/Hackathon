@@ -4,12 +4,20 @@
 		public function __construct(){
 			$this->conn=Load::load('Connection');
 		}
-		public function addDisponibility($idUser,$beginHour,$endHour){
+		public function addDisponibility($idUser,$beginHour,$endHour,$repeat){
 			$conn = $this->conn;
 			$sql="INSERT INTO disponibility(idUser,beginHour,endHour) VALUES (:idUser,:beginHour,:endHour)";
 			$stat = $conn->prepare($sql);
-			$stat->bindParam(":idUser",$idUser);$stat->bindParam(":beginHour",$beginHour);$stat->bindParam(":endHour",$endHour);
-			$stat->execute();
+			$stat->bindParam(":idUser",$idUser);
+			for($i=0;$i<$repeat;$i++){
+				$week = "+".$i."week";
+				$deb = date('Y-m-d G:i:s',strtotime($beginHour.$week));
+				$end = date('Y-m-d G:i:s',strtotime($endHour.$week));
+				
+				$stat->bindParam(":beginHour",$deb);
+				$stat->bindParam(":endHour",$end);
+				$stat->execute();
+			}
 		}
 		public function updateDisponibility($idDisponibility,$idUser,$beginHour,$endHour){
 			$conn = $this->conn;

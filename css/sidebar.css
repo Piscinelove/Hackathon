@@ -121,3 +121,18 @@ body {
         margin-right: 0;
     }
 }
+
+.cancel {
+    display:block;
+    position:absolute;
+    top:3px;
+    right:2px;
+    color:#FFFFFF;
+    height:30px;
+    width:35px;
+    font-size:30px;
+    text-decoration:none;
+    text-align:center;
+    font-weight:bold;
+    cursor:pointer;
+}

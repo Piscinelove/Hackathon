@@ -10,6 +10,12 @@
 			$stat = $conn->prepare($sql);
 			$stat->bindParam(":lastname",$lastname);$stat->bindParam(":firstname",$firstname);$stat->bindParam(":mail",$mail);$stat->bindParam(":description",$description);$stat->bindParam(":userType",$userType);$stat->bindParam(":phone",$phone);$stat->bindParam(":gender",$gender);$stat->bindParam(":token",$token);$stat->bindParam(":idTown",$idTown);
 			$stat->execute();
+
+			$sql="SELECT MAX(id) idUser FROM user WHERE lastname =:lastname AND firstname=:firstname";
+			$stat->bindParam(":lastname",$lastname);
+			$stat->bindParam(":firstname",$firstname);
+			$stat->execute();
+			return $stat->fetch(PDO::FETCH_LAZY)['idUser'];
 		}
 		public function updateUser($idUser,$lastname,$firstname,$mail,$description,$userType,$phone,$gender,$token,$idTown){
 			$conn = $this->conn;

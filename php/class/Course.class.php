@@ -35,7 +35,10 @@
 		//part max
 		public function getCourseById($idCourse){
 			$conn = $this->conn;
-			$sql="SELECT * FROM course WHERE idCourse = :idCourse";
+			$sql="SELECT * FROM course C
+						INNER JOIN behavior B on C.idBehavior = B.idBehavior
+						INNER JOIN type T on T.idType = B.idType
+					WHERE C.idCourse = :idCourse";
 			$stat=  $conn->prepare($sql);
 			$stat->bindParam(":idCourse",$idCourse);
 			$stat->execute();
@@ -63,7 +66,9 @@
 			$conn = $this->conn;
 			$sql="SELECT * FROM courseUser CU 
 					INNER JOIN course C ON C.idCourse = CU.idCourse
-					WHERE C.idTeacher = :idUser
+					INNER JOIN behavior B on C.idBehavior = B.idBehavior
+					INNER JOIN type T on T.idType = B.idType
+				WHERE C.idTeacher = :idUser
 					AND CU.beginHour > NOW()";
 			$stat = $conn->prepare($sql);
 			$stat->bindParam(":idUser",$idUser);
@@ -74,7 +79,9 @@
 			$conn = $this->conn;
 			$sql="SELECT * FROM courseUser CU 
 					INNER JOIN course C ON C.idCourse = CU.idCourse
-					WHERE CU.idUser = :idUser
+					INNER JOIN behavior B on C.idBehavior = B.idBehavior
+					INNER JOIN type T on T.idType = B.idType
+				WHERE CU.idUser = :idUser
 					AND CU.beginHour > NOW()";
 			$stat = $conn->prepare($sql);
 			$stat->bindParam(":idUser",$idUser);

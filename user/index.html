@@ -14,7 +14,6 @@
 
 </head>
 
-
 <body>
 <div id="wrapper" class="toggled">
 
@@ -28,16 +27,19 @@
                 </a>
             </li>
             <li>
-                <a href="#">Mon profile</a>
+                <a href="#" id="give-section1">Mon profil</a>
             </li>
             <li>
-                <a href="#" id="give">Donner un cours</a>
+                <a href="#" id="give-section2">Donner un cours</a>
             </li>
             <li>
                 <a href="#">Trouver un cours</a>
             </li>
             <li>
                 <a href="#">Mes disponibilités</a>
+            </li>
+            <li>
+                <a href="#">Créer un cours</a>
             </li>
         </ul>
     </div>
@@ -48,15 +50,37 @@
         <section id="section1">
             <div class="container-fluid">
                 <div class="row">
-                    SECTION 1
+                    Mon profil
                 </div>
             </div>
         </section>
 
-        <section id="section2" style="display: none">
+        <section id="section2" style="display:none">
             <div class="container-fluid">
                 <div class="row">
-                    SECTION 2
+                    <div class="col-lg-6">
+                        <form class="navbar-form" role="search">
+                            <div class="input-group">
+                                <input type="text" class="form-control" placeholder="Search" name="srch-term" id="srch-term">
+                                <div class="input-group-btn">
+                                    <button class="btn btn-default" type="submit"><i class="glyphicon glyphicon-search"></i></button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="col-lg-6">
+                        <button class="btn btn-primary">J'offre</button>
+                    </div>
+
+                </div>
+                <div class="row">
+                    <ul class="list-group">
+                        <li class="list-group-item">
+                            <div class="col-lg-4">
+                                
+                            </div>
+                        </li>
+                    </ul>
                 </div>
             </div>
         </section>
@@ -70,19 +94,22 @@
 <!-- Menu Toggle Script -->
 <script>
 
-    $("#menu-toggle").click(function(e) {
+    $(".cancel").click(function(e) {
         e.preventDefault();
         $("#wrapper").toggleClass("toggled");
     });
+	
+    $("#give-section1").click(function(e) {
+        e.preventDefault();
+        $("#section2").hide();
+        $("#section1").show();
+    });
 
-    $("#give").click(function(e) {
+    $("#give-section2").click(function(e) {
         e.preventDefault();
         $("#section1").hide();
         $("#section2").show();
     });
-
-
-
 
 </script>
 </body>

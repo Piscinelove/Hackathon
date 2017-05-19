@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+    <link rel="stylesheet" href="../libs/bootstrap.css"/>
+    <link rel="stylesheet" href="../libs/bootstrap.min.css"/>
+    <script src="../js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="../css/sidebar.css"/>
+    <link rel="stylesheet" href="../css/findCourse.css"/>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script type="javascript" src="../js/main.js"></script>
+
+
+</head>
+
+
+<body>
+<div id="wrapper" class="toggled">
+
+    <!-- Sidebar -->
+    <div id="sidebar-wrapper">
+        <a class="cancel" id="menu-toggle">&times;</a>
+        <ul class="sidebar-nav">
+            <li class="sidebar-brand">
+                <a href="#">
+                    Rafael Peixoto
+                </a>
+            </li>
+            <li>
+                <a href="#section1">Mon profil</a>
+            </li>
+            <li>
+                <a href="#" id="give">Donner un cours</a>
+            </li>
+            <li>
+                <a href="#">Trouver un cours</a>
+            </li>
+            <li>
+                <a href="#">Mes disponibilités</a>
+            </li>
+        </ul>
+    </div>
+    <!-- /#sidebar-wrapper -->
+
+    <!-- Page Content -->
+    <div id="page-content-wrapper">
+        <div class="container-fluid">
+
+            <div class="row">
+                <div class="col-lg-2">
+                    <div class="dropdown">
+                        <button class="btn btn-default dropdown-toggle form-control filtre" type="button" id="dropdownMenu1"
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                            Type
+                            <span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                            <li><a href="#">Action</a></li>
+                            <li><a href="#">Another action</a></li>
+                            <li><a href="#">Something else here</a></li>
+                            <li role="separator" class="divider"></li>
+                            <li><a href="#">Separated link</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-lg-2">
+                    <div class="dropdown">
+                        <button class="btn btn-default dropdown-toggle form-control" type="button" id="dropdownMenu2"
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                            Behavior
+                            <span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                            <li><a href="#">Action</a></li>
+                            <li><a href="#">Another action</a></li>
+                            <li><a href="#">Something else here</a></li>
+                            <li role="separator" class="divider"></li>
+                            <li><a href="#">Separated link</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-lg-2">
+                    <div class="dropdown">
+                        <button class="btn btn-default dropdown-toggle form-control" type="button" id="dropdownMenu3"
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                            Ville
+                            <span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                            <li><a href="#">Action</a></li>
+                            <li><a href="#">Another action</a></li>
+                            <li><a href="#">Something else here</a></li>
+                            <li role="separator" class="divider"></li>
+                            <li><a href="#">Separated link</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <ul class="list-group">
+                    <li class="list-group-item ">
+                        <div class="row">
+                            <div class="col-lg-1">
+                                <img class="img-responsive" src="../media/blackboard.png">
+                            </div>
+                            <div class="col-lg-7">
+                                <div class="col-lg-12">
+                                    <h3>Titre</h3>
+                                    <h4>Je suis un enseignant</h4>
+                                    <h4>Nom Prenom</h4>
+                                </div>
+
+                            </div>
+                            <div class="col-lg-4">
+                                <p>
+                                    Description...
+                                </p>
+
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+                <ul class="list-group">
+                    <li class="list-group-item">
+                        <div class="row">
+                            <div class="col-lg-1">
+                                <img class="img-responsive" src="../media/blackboard.png">
+                            </div>
+                            <div class="col-lg-7">
+                                <div class="col-lg-12">
+                                    <h3>Titre</h3>
+                                    <h4>Je suis un enseignant</h4>
+                                    <h4>Nom Prenom</h4>
+                                </div>
+
+                            </div>
+                            <div class="col-lg-4">
+                                <p>
+                                    Description...
+                                </p>
+
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+                <ul class="list-group">
+                    <li class="list-group-item">
+                        <div class="row">
+                            <div class="col-lg-1">
+                                <img class="img-responsive" src="../media/blackboard.png">
+                            </div>
+                            <div class="col-lg-7">
+                                <div class="col-lg-12">
+                                    <h3>Titre</h3>
+                                    <h4>Je suis un enseignant</h4>
+                                    <h4>Nom Prenom</h4>
+                                </div>
+
+                            </div>
+                            <div class="col-lg-4">
+                                <p>
+                                    Description...
+                                </p>
+
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!-- /#page-content-wrapper -->
+
+
+</div>
+<!-- /#wrapper -->
+<script src="../js/bootstrap.min.js"></script>
+<!-- Menu Toggle Script -->
+<script>
+
+    $(".cancel").click(function (e) {
+        e.preventDefault();
+        $("#wrapper").toggleClass("toggled");
+    });
+
+    $("#").click(function (e) {
+        e.preventDefault();
+        $("#section1").hide();
+        $("#section2").show();
+    });
+
+
+</script>
+</body>
+</html>
