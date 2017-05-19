@@ -1,7 +1,10 @@
-<?php
-/**
- * Created by PhpStorm.
- * User: Rafael Peixoto
- * Date: 19.05.2017
- * Time: 12:28
- */
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+</html>
