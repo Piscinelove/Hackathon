@@ -33,7 +33,6 @@
 			$stat = $conn->prepare($sql);
 			$stat->execute();
 			$res = $stat->fetchAll(PDO::FETCH_ASSOC);
-			$res = json_encode($res);
 			return $res;
 		}
 

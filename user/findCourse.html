@@ -1,198 +1,242 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
-
-    <link rel="stylesheet" href="../libs/bootstrap.css"/>
-    <link rel="stylesheet" href="../libs/bootstrap.min.css"/>
+    <link rel="stylesheet" href="../libs/bootstrap.css" />
+    <link rel="stylesheet" href="../libs/bootstrap.min.css" />
     <script src="../js/bootstrap.min.js"></script>
-    <link rel="stylesheet" href="../css/sidebar.css"/>
-    <link rel="stylesheet" href="../css/findCourse.css"/>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="../css/sidebar.css" />
+    <link rel="stylesheet" href="../css/findCourse.css" />
     <script type="javascript" src="../js/main.js"></script>
+    <script>
+    $(document).ready(function() {
+        getMatiere();
+        getVille();
+    });
 
+    function getMatiere() {
+        $.ajax({
+            url: '/php/traitement.php',
+            type: 'POST',
+            data: "getMatiere=getMatiere",
+            success: function(res) {
+                res = JSON.parse(res);
+                var txt = "";
+                for (i = 0; i < res.length; i++) {
+                    txt += '<li onclick="getLvl(' + res[i]['idType'] + ',\'' + res[i]['name'] + '\')"><a>' + res[i]['name'] + '</a></li>';
+                }
+                document.getElementById('typeCourse').innerHTML = txt;
+                document.getElementById('typeCourse').children[0].click();
+            }
+        })
+    }
 
+    function getLvl(idMatiere, name) {
+        document.getElementById('dropdownMenu1').innerHTML = '<span dataId="' + idMatiere + '">' + name + '</span><span class="caret"></span>';
+        $.ajax({
+            url: '/php/traitement.php',
+            type: 'POST',
+            data: "getLvl=" + idMatiere,
+            success: function(res) {
+                res = JSON.parse(res);
+                var txt = '';
+                for (i = 0; i < res.length; i++) {
+                    txt += '<li onclick="showLvl(' + res[i]['idBehavior'] + ',\'' + res[i]['name'] + '\')"><a>' + res[i]['name'] + '</a></li>';
+                }
+                document.getElementById('behaviorCourse').innerHTML = txt;
+                showResult();
+            }
+        })
+    }
+
+    function showLvl(idLvl, name) {
+        document.getElementById('dropdownMenu2').innerHTML = '<span dataId="' + idLvl + '">' + name + '</span><span class="caret"></span>';
+        showResult();
+    }
+
+    function getVille() {
+        $.ajax({
+            url: '/php/traitement.php',
+            type: 'POST',
+            data: "getVille=getVille",
+            success: function(res) {
+                res = JSON.parse(res);
+                var txt = "";
+                for (i = 0; i < res.length; i++) {
+                    txt += '<li onclick="showVille(' + res[i]['idTown'] + ',\'' + res[i]['name'] + '\')"><a>' + res[i]['name'] + '</a></li>';
+                }
+                document.getElementById('villeCourse').innerHTML = txt;
+
+            }
+        })
+    }
+
+    function showVille(idVille, name) {
+        document.getElementById('dropdownMenu3').innerHTML = '<span dataId="' + idVille + '">' + name + '</span><span class="caret"></span>';
+        showResult();
+    }
+
+    function showResult() {
+        var toSend = "";
+        var el1 = "filtreMatiere=" + document.getElementById('dropdownMenu1').children[0].attributes['dataId'].value + "&";
+        try {
+            var el2 = "filtreLvl=" + document.getElementById('dropdownMenu2').children[0].attributes['dataId'].value + "&";
+        } catch (err) {
+            var el2 = "filtreLvl=&";
+        }
+        try {
+            var el3 = "filtreVille=" + document.getElementById('dropdownMenu3').children[0].attributes['dataId'].value;
+        } catch (err) {
+            var el3 = "filtreVille=&";
+        }
+        $.ajax({
+            url: '/php/traitement.php',
+            type: 'POST',
+            data: el1 + el2 + el3,
+            success: function(res) {
+                res = JSON.parse(res);
+                var txt = "";
+                for (i = 0; i < res.length; i++) {
+                    txt += '<div class="row">'+
+                        '<ul class="list-group">'+
+                            '<li class="list-group-item ">'+
+                                '<div class="row">'+
+                                    '<div class="col-lg-1">'+
+                                        '<img class="img-responsive" src="../media/blackboard.png">'+
+                                    '</div>'+
+                                    '<div class="col-lg-7">'+
+                                        '<div class="col-lg-12">'+
+                                            '<h3>'+res[i]['TypeName']+'</h3>'+
+                                            '<h4>Je suis un enseignant</h4>'+
+                                            '<h4>Nom Prenom</h4>'+
+                                        '</div>'+
+                                    '</div>'+
+                                    '<div class="col-lg-4">'+
+                                        '<p>'+
+                                            'Description...'+
+                                        '</p>'+
+                                    '</div>'+
+                                '</div>'+
+                            '</li>'+
+                        '</ul>'+
+                    '</div>';
+                }
+                document.getElementById('contentSearch').innerHTML = txt;
+
+            }
+        })
+    }
+    </script>
 </head>
 
-
 <body>
-<div id="wrapper" class="toggled">
-
-    <!-- Sidebar -->
-    <div id="sidebar-wrapper">
-        <a class="cancel" id="menu-toggle">&times;</a>
-        <ul class="sidebar-nav">
-            <li class="sidebar-brand">
-                <a href="#">
+    <div id="wrapper" class="toggled">
+        <!-- Sidebar -->
+        <div id="sidebar-wrapper">
+            <a class="cancel" id="menu-toggle">&times;</a>
+            <ul class="sidebar-nav">
+                <li class="sidebar-brand">
+                    <a href="#">
                     Rafael Peixoto
                 </a>
-            </li>
-            <li>
-                <a href="#section1">Mon profil</a>
-            </li>
-            <li>
-                <a href="#" id="give">Donner un cours</a>
-            </li>
-            <li>
-                <a href="#">Trouver un cours</a>
-            </li>
-            <li>
-                <a href="#">Mes disponibilités</a>
-            </li>
-        </ul>
-    </div>
-    <!-- /#sidebar-wrapper -->
-
-    <!-- Page Content -->
-    <div id="page-content-wrapper">
-        <div class="container-fluid">
-
-            <div class="row">
-                <div class="col-lg-2">
-                    <div class="dropdown">
-                        <button class="btn btn-default dropdown-toggle form-control filtre" type="button" id="dropdownMenu1"
-                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                            Type
-                            <span class="caret"></span>
-                        </button>
-                        <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-                            <li><a href="#">Action</a></li>
-                            <li><a href="#">Another action</a></li>
-                            <li><a href="#">Something else here</a></li>
-                            <li role="separator" class="divider"></li>
-                            <li><a href="#">Separated link</a></li>
+                </li>
+                <li>
+                    <a href="#section1">Mon profil</a>
+                </li>
+                <li>
+                    <a href="#" id="give">Donner un cours</a>
+                </li>
+                <li>
+                    <a href="#">Trouver un cours</a>
+                </li>
+                <li>
+                    <a href="#">Mes disponibilités</a>
+                </li>
+            </ul>
+        </div>
+        <!-- /#sidebar-wrapper -->
+        <!-- Page Content -->
+        <div id="page-content-wrapper">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-lg-2">
+                        <div class="dropdown">
+                            <button class="btn btn-default dropdown-toggle form-control filtre" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                <span>Matière</span>
+                                <span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu" id="typeCourse" aria-labelledby="dropdownMenu1">
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-lg-2">
+                        <div class="dropdown">
+                            <button class="btn btn-default dropdown-toggle form-control filtre" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                <span>Lvl</span>
+                                <span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu" aria-labelledby="dropdownMenu2" id="behaviorCourse">
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-lg-2">
+                        <div class="dropdown">
+                            <button class="btn btn-default dropdown-toggle form-control filtre" type="button" id="dropdownMenu3" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                <span>Ville</span>
+                                <span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu" aria-labelledby="dropdownMenu3" id="villeCourse">
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div id="contentSearch">
+                    <div class="row">
+                        <ul class="list-group">
+                            <li class="list-group-item ">
+                                <div class="row">
+                                    <div class="col-lg-1">
+                                        <img class="img-responsive" src="../media/blackboard.png">
+                                    </div>
+                                    <div class="col-lg-7">
+                                        <div class="col-lg-12">
+                                            <h3>Titre</h3>
+                                            <h4>Je suis un enseignant</h4>
+                                            <h4>Nom Prenom</h4>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-4">
+                                        <p>
+                                            Description...
+                                        </p>
+                                    </div>
+                                </div>
+                            </li>
                         </ul>
                     </div>
                 </div>
-                <div class="col-lg-2">
-                    <div class="dropdown">
-                        <button class="btn btn-default dropdown-toggle form-control" type="button" id="dropdownMenu2"
-                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                            Behavior
-                            <span class="caret"></span>
-                        </button>
-                        <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-                            <li><a href="#">Action</a></li>
-                            <li><a href="#">Another action</a></li>
-                            <li><a href="#">Something else here</a></li>
-                            <li role="separator" class="divider"></li>
-                            <li><a href="#">Separated link</a></li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="col-lg-2">
-                    <div class="dropdown">
-                        <button class="btn btn-default dropdown-toggle form-control" type="button" id="dropdownMenu3"
-                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                            Ville
-                            <span class="caret"></span>
-                        </button>
-                        <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-                            <li><a href="#">Action</a></li>
-                            <li><a href="#">Another action</a></li>
-                            <li><a href="#">Something else here</a></li>
-                            <li role="separator" class="divider"></li>
-                            <li><a href="#">Separated link</a></li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-
-            <div class="row">
-                <ul class="list-group">
-                    <li class="list-group-item ">
-                        <div class="row">
-                            <div class="col-lg-1">
-                                <img class="img-responsive" src="../media/blackboard.png">
-                            </div>
-                            <div class="col-lg-7">
-                                <div class="col-lg-12">
-                                    <h3>Titre</h3>
-                                    <h4>Je suis un enseignant</h4>
-                                    <h4>Nom Prenom</h4>
-                                </div>
-
-                            </div>
-                            <div class="col-lg-4">
-                                <p>
-                                    Description...
-                                </p>
-
-                            </div>
-                        </div>
-                    </li>
-                </ul>
-                <ul class="list-group">
-                    <li class="list-group-item">
-                        <div class="row">
-                            <div class="col-lg-1">
-                                <img class="img-responsive" src="../media/blackboard.png">
-                            </div>
-                            <div class="col-lg-7">
-                                <div class="col-lg-12">
-                                    <h3>Titre</h3>
-                                    <h4>Je suis un enseignant</h4>
-                                    <h4>Nom Prenom</h4>
-                                </div>
-
-                            </div>
-                            <div class="col-lg-4">
-                                <p>
-                                    Description...
-                                </p>
-
-                            </div>
-                        </div>
-                    </li>
-                </ul>
-                <ul class="list-group">
-                    <li class="list-group-item">
-                        <div class="row">
-                            <div class="col-lg-1">
-                                <img class="img-responsive" src="../media/blackboard.png">
-                            </div>
-                            <div class="col-lg-7">
-                                <div class="col-lg-12">
-                                    <h3>Titre</h3>
-                                    <h4>Je suis un enseignant</h4>
-                                    <h4>Nom Prenom</h4>
-                                </div>
-
-                            </div>
-                            <div class="col-lg-4">
-                                <p>
-                                    Description...
-                                </p>
-
-                            </div>
-                        </div>
-                    </li>
-                </ul>
             </div>
         </div>
+        <!-- /#page-content-wrapper -->
     </div>
-    <!-- /#page-content-wrapper -->
-
-
-</div>
-<!-- /#wrapper -->
-<script src="../js/bootstrap.min.js"></script>
-<!-- Menu Toggle Script -->
-<script>
-
-    $(".cancel").click(function (e) {
+    <!-- /#wrapper -->
+    <script src="../js/bootstrap.min.js"></script>
+    <!-- Menu Toggle Script -->
+    <script>
+    $(".cancel").click(function(e) {
         e.preventDefault();
         $("#wrapper").toggleClass("toggled");
     });
 
-    $("#").click(function (e) {
+    $("#").click(function(e) {
         e.preventDefault();
         $("#section1").hide();
         $("#section2").show();
     });
-
-
-</script>
+    </script>
 </body>
+
 </html>

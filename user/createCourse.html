@@ -25,9 +25,33 @@
             data: "getMatiere=getMatiere",
             success : function(res){
                 res = JSON.parse(res);
-                alert(res);
+                var txt = '<option disabled selected="selected">Matière</option>';
+                for(i=0;i<res.length;i++){
+                    txt+="<option value=\""+res[i]['idType']+"\">"+res[i]['name']+"</option>";
+                }
+                document.getElementById('typeCourse').innerHTML = txt;
+
             }
         })
+    }
+    function getLvl(){
+        var idMatiere = document.getElementById('typeCourse').value;
+        $.ajax({
+            url: '/php/traitement.php',
+            type: 'POST',
+            data: "getLvl="+idMatiere,
+            success : function(res){
+                $(".cacheParMatiere").show(100);
+                res = JSON.parse(res);
+                var txt = '<option disabled selected="selected">Jusqu\'où pouvez-vous enseigner ?</option>';
+                for(i=0;i<res.length;i++){
+                    txt+="<option value=\""+res[i]['idType']+"\">"+res[i]['name']+"</option>";
+                }
+                document.getElementById('behaviorCourse').innerHTML = txt;
+
+            }
+        })
+        
     }
 
     function createCours(e){
@@ -48,7 +72,7 @@
             type: 'POST',
             data: toSend,
             success : function(res){
-                alert(res);
+                window.location="/user/myTeaching.html";
             }
         })
         
@@ -91,13 +115,8 @@
             <form class="col-md-offset-2 col-md-8 col-xs-12" id="formCourse" onsubmit="createCours(event)">
                 <div class="form-group">
                     <label for="typeCourse">Matière</label>
-                    <select class="form-control" id="typeCourse" name="typeCourse">
+                    <select class="form-control" id="typeCourse" name="typeCourse" onchange="getLvl()">
                         <option disabled selected="selected">Matière</option>
-                        <option>1</option>
-                        <option>2</option>
-                        <option>3</option>
-                        <option>4</option>
-                        <option>5</option>
                     </select>
                 </div>
                 <div class="form-group">
@@ -108,15 +127,10 @@
                     <label for="nbUsersCourse">Nombre de participants maximum</label>
                     <input type="number" class="form-control" name="nbUsersCourse" id="nbUsersCourse" placeholder="Nombre">
                 </div>
-                <div class="form-group">
+                <div class="form-group cacheParMatiere" style="display: none">
                     <label for="behaviorCourse">Niveau</label>
                     <select class="form-control" id="behaviorCourse" name="behaviorCourse">
                         <option disabled selected="selected">Jusqu'où pouvez-vous enseigner ?</option>
-                        <option>1</option>
-                        <option>2</option>
-                        <option>3</option>
-                        <option>4</option>
-                        <option>5</option>
                     </select>
                 </div>
                 <div class="form-group pSubmit">

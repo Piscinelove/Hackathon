@@ -294,5 +294,11 @@ footer{
     padding-top: 20px;
 }
 
-
-
+#logo
+{
+    width: 350px;
+}
+#logo svg
+{
+    text-align: center;
+}

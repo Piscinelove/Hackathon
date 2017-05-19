@@ -45,20 +45,63 @@
 		}
 		public function getAllCoursesByTypeAndBehaviorAndCanton($type,$behavior,$canton){
 			$conn = $this->conn;
-			$sql="SELECT * FROM course C
-						INNER JOIN behavior B on B.idBehavior = T.idBehavior
+			if($behavior==""){
+				$sql="SELECT *,T.name as TypeName  FROM course C
+						INNER JOIN behavior B on B.idBehavior = C.idBehavior
 						INNER JOIN type T ON T.idType = B.idType
 						INNER JOIN user U on U.idUser = C.idTeacher
-						INNER JOIN town T on T.idTown = U.idTown
-						INNER JOIN canton Ca on Ca.idCanton = T.idCanton
+						INNER JOIN town Tow on Tow.idTown = U.idTown
+						INNER JOIN canton Ca on Ca.idCanton = Tow.idCanton
+					WHERE T.idType = :type
+						AND Ca.idCanton = :canton
+					";
+					$stat = $conn->prepare($sql);
+					$stat->bindParam(":type",$type);
+					$stat->bindParam(":canton",$canton);
+				if($canton==""){
+					$sql="SELECT *,T.name as TypeName  FROM course C
+						INNER JOIN behavior B on B.idBehavior = C.idBehavior
+						INNER JOIN type T ON T.idType = B.idType
+						INNER JOIN user U on U.idUser = C.idTeacher
+						INNER JOIN town Tow on Tow.idTown = U.idTown
+						INNER JOIN canton Ca on Ca.idCanton = Tow.idCanton
+					WHERE T.idType = :type
+					";
+					$stat = $conn->prepare($sql);
+					$stat->bindParam(":type",$type);
+				}
+			}else if($canton==""){
+				$sql="SELECT *,T.name as TypeName FROM course C
+						INNER JOIN behavior B on B.idBehavior = C.idBehavior
+						INNER JOIN type T ON T.idType = B.idType
+						INNER JOIN user U on U.idUser = C.idTeacher
+						INNER JOIN town Tow on Tow.idTown = U.idTown
+						INNER JOIN canton Ca on Ca.idCanton = Tow.idCanton
+					WHERE B.idBehavior = :behavior 
+						AND T.idType = :type
+					";	
+				$stat = $conn->prepare($sql);
+				$stat->bindParam(":type",$type);
+				$stat->bindParam(":behavior",$behavior);
+			}else{
+				$sql="SELECT *,T.name as TypeName  FROM course C
+						INNER JOIN behavior B on B.idBehavior = C.idBehavior
+						INNER JOIN type T ON T.idType = B.idType
+						INNER JOIN user U on U.idUser = C.idTeacher
+						INNER JOIN town Tow on Tow.idTown = U.idTown
+						INNER JOIN canton Ca on Ca.idCanton = Tow.idCanton
 					WHERE B.idBehavior = :behavior 
 						AND T.idType = :type
 						AND Ca.idCanton = :canton
-					";		
-			$stat = $conn->prepare($sql);
-			$stat->bindParam(":type",$type);
-			$stat->bindParam(":behavior",$behavior);
-			$stat->bindParam(":canton",$canton);
+					";
+				$stat = $conn->prepare($sql);
+				$stat->bindParam(":type",$type);
+				$stat->bindParam(":behavior",$behavior);
+				$stat->bindParam(":canton",$canton);
+			}
+				
+			
+			
 			$stat->execute();
 			return $stat->fetchAll(PDO::FETCH_ASSOC);
 		}
@@ -99,7 +142,7 @@
 			$stat->bindParam(":endHour",$endHour);
 			$stat->execute();
 		}
-		public function deleteCourse($idUser,$idCourse){
+		public function deleteCourseUser($idUser,$idCourse){
 			$conn = $this->conn;
 			$sql="DELETE FROM courseUser WHERE idUser = :idUser AND idCourse = :idCourse";
 			$stat = $conn->prepare($sql);

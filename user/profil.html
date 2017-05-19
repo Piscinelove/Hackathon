@@ -1,113 +1,183 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Appui-on</title>
 
-    <link rel="stylesheet" href="../css/bootstrap.css"/>
-    <link rel="stylesheet" href="../css/bootstrap.min.css"/>
-    <script src="../js/bootstrap.min.js"></script>
+	<!-- STYLES -->
+    <link rel="stylesheet" href="../libs/bootstrap.min.css"/>
+    <link rel="stylesheet" href="../libs/bootstrap-theme.min.css"/>
     <link rel="stylesheet" href="../css/sidebar.css"/>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <script type="javascript" src="../js/main.js"></script>
-
-
+    <link rel="stylesheet" href="../css/profile.css"/>
+	
+	<!-- SCRIPTS -->
+    <script type="text/javascript" src="../js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../js/jquery.js"></script>
+    <script type="text/javascript" src="../js/main.js"></script>
 </head>
-
 <body>
 <div id="wrapper" class="toggled">
-
     <!-- Sidebar -->
     <div id="sidebar-wrapper">
-        <a class="cancel" id="menu-toggle">&times;</a>
         <ul class="sidebar-nav">
             <li class="sidebar-brand">
-                <a href="#">
-                    Rafael Peixoto
-                </a>
-            </li>
+                <a id="menu-toggle" href="#">Menu <span id="main_icon" class="glyphicon glyphicon-menu-hamburger"></span></a>
             <li>
-                <a href="#" id="give-section1">Mon profil</a>
-            </li>
-            <li>
-                <a href="#" id="give-section2">Donner un cours</a>
-            </li>
-            <li>
-                <a href="#">Trouver un cours</a>
-            </li>
-            <li>
-                <a href="#">Mes disponibilit�s</a>
-            </li>
+				<a href="profil.html">Mon profil <span class="sub_icon glyphicon glyphicon-link"></span></a>
+			</li>
+			<li>
+				<a href="learnings.html">Mes apprentissages <span class="sub_icon glyphicon glyphicon-link"></span></a>
+			</li>
+			<li>
+				<a href="teachings.html">Mes enseignements <span class="sub_icon glyphicon glyphicon-link"></span></a>
+			</li>
+			<li>
+				<a href="disponibilities.html">Mes disponibilités <span class="sub_icon glyphicon glyphicon-link"></span></a>
+			</li>
+			<li>
+				<a href="findCourse.html">Trouver un cours <span class="sub_icon glyphicon glyphicon-link"></span></a>
+			</li>
+			<li>
+				<a href="createCourse.html">Créer un cours <span class="sub_icon glyphicon glyphicon-link"></span></a>
+			</li>
+			<!--<?php /*
+					$page = $_GET['page'];
+					
+					echo '
+					<li ';if($page =='home'){ echo 'class="active"';} echo '><a href="'.LINK_HOME.'"><span class="glyphicon glyphicon-home"></span> <span class="hidden-xs">Accueil</span></a></li>
+					<li ';if($page =='film'){ echo 'class="active"';} echo '><a href="'.LINK_FILM.'"><span class="glyphicon glyphicon-film"></span> <span class="hidden-xs">Films</span></a></li>
+					<li ';if($page =='serie'){ echo 'class="active"';} echo '><a href="'.LINK_SERIE.'"><span class="glyphicon glyphicon-inbox"></span> <span class="hidden-xs">Séries</span></a></li>
+					<li ';if($page =='profil'){ echo 'class="active"';} echo '><a href="'.LINK_PROFIL.'"><span class="glyphicon glyphicon-wrench"></span> <span class="hidden-xs">Profil</span></a></li>';
+					if($_SESSION['role'] == 1) {
+						echo '
+						<li ';if($page =='user'){ echo 'class="active"';} echo '><a href="'.LINK_USER.'"><span class="glyphicon glyphicon-user"></span> <span class="hidden-xs">Utilisateurs</span></a></li>';
+					}
+					//<li ';if($page =='music'){ echo 'class="active"';} echo '><a href="'.LINK_MUSIC.'"><span class="glyphicon glyphicon-headphones"></span> <span class="hidden-xs">Musiques</span></a></li>';
+			*/	?>-->
         </ul>
     </div>
     <!-- /#sidebar-wrapper -->
-
-    <!-- Page Content -->
+	<!-- Page Content -->
     <div id="page-content-wrapper">
-        <section id="section1">
-            <div class="container-fluid">
-                <div class="row">
-                    Mon profil
-                </div>
-				
-            </div>
-        </section>
-
-        <section id="section2" style="display:none">
-            <div class="container-fluid">
-                <div class="row">
-                    <div class="col-lg-6">
-                        <form class="navbar-form" role="search">
-                            <div class="input-group">
-                                <input type="text" class="form-control" placeholder="Search" name="srch-term" id="srch-term">
-                                <div class="input-group-btn">
-                                    <button class="btn btn-default" type="submit"><i class="glyphicon glyphicon-search"></i></button>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
-                    <div class="col-lg-6">
-                        <button class="btn btn-primary">J'offre</button>
-                    </div>
-                </div>
-                <div class="row">
-                    <ul class="list-group">
-                        <li class="list-group-item">
-                            <div class="col-lg-4">
-                                
-                            </div>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </section>
+		<section id="section-display-profile">
+			<div class="container-fluid">
+				<div class="row" id="img-profile">
+					<img src="../media/vs.png" />
+				</div>
+				<div class="profile-information">
+					<div class="row">
+						<div class="col-md-3">
+							<h5 class="h5-detail">Monsieur</h5>
+						</div>
+						<div class="col-md-9">
+							Monsieur
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-md-3">
+							<h5 class="h5-detail">Nom</h5>
+						</div>
+						<div class="col-md-9">
+							Peixoto
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-md-3">
+							<h5 class="h5-detail">Prénom</h5>
+						</div>
+						<div class="col-md-9">
+							Rafael
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-md-3">
+							<h5 class="h5-detail">Adresse e-mail</h5>
+						</div>
+						<div class="col-md-9">
+							rafael@rafael.ch
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-md-3">
+							<h5 class="h5-detail">Description</h5>
+						</div>
+						<div class="col-md-9">
+							Je suis un très bon informaticien.
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-md-3">
+							<h5 class="h5-detail">N° de téléphone</h5>
+						</div>
+						<div class="col-md-9">
+							0799178783
+						</div>
+					</div>
+				</div>
+				<button type="button" id="btn-edit-profile" class="btn btn-default">Modifier le profil</button>
+			</div>
+		</section>
+		<section id="section-edit-profile">
+			<div class="container-fluid">
+				<h2>Mon profil</h2>
+				<form class="form-horizontal form-edit-profile">
+				  <div class="form-group">
+					<label for="name" class="col-md-3 control-label">Nom</label>
+					<div class="col-md-9">
+					  <input type="text" class="form-control" id="name" value="Peixoto">
+					</div>
+				  </div>
+				  <div class="form-group">
+					<label for="firstname" class="col-md-3 control-label">Prénom</label>
+					<div class="col-md-9">
+					  <input type="text" class="form-control" id="firstname" value="Rafael">
+					</div>
+				  </div>
+				  <div class="form-group">
+					<label for="email" class="col-md-3 control-label">Adresse e-mail</label>
+					<div class="col-md-9">
+					  <input type="email" class="form-control" id="email" value="rafael@rafael.ch">
+					</div>
+				  </div>
+				  <div class="form-group">
+					<label for="description" class="col-md-3 control-label">Description</label>
+					<div class="col-md-9">
+						<textarea class="form-control" rows="5" id="description">Je suis un très bon informaticien</textarea>
+					</div>
+				  </div>
+				  <div class="form-group">
+					<label for="name" class="col-md-3 control-label">N° de téléphone</label>
+					<div class="col-md-9">
+					  <input type="text" class="form-control" id="phone" value="0799178783">
+					</div>
+				  </div>
+				  <div class="form-group">
+					<div class="col-md-offset-10 col-md-2">
+					  <button type="submit" class="btn btn-default" id="btn-valid-profile">Modifier</button>
+					</div>
+				  </div>
+				</form>
+			</div>
+		</section>
     </div>
     <!-- /#page-content-wrapper -->
-
-
 </div>
 <!-- /#wrapper -->
-<script src="../js/bootstrap.min.js"></script>
 <!-- Menu Toggle Script -->
 <script>
-
-    $(".cancel").click(function(e) {
-        e.preventDefault();
-        $("#wrapper").toggleClass("toggled");
-    });
+	$(document).ready(function(e) {
+        $("#section-edit-profile").hide();
+        $("#section-display-profile").show();
 	
-    $("#give-section1").click(function(e) {
-        e.preventDefault();
-        $("#section2").hide();
-        $("#section1").show();
-    });
-
-    $("#give-section2").click(function(e) {
-        e.preventDefault();
-        $("#section1").hide();
-        $("#section2").show();
-    });
-
+		$("#menu-toggle").click(function(e) {
+			$("#wrapper").toggleClass("active");
+		});
+		
+		$("#btn-edit-profile").click(function(e) {
+			$("#section-edit-profile").show();
+			$("#section-display-profile").hide();
+		});
+	});	
 </script>
 </body>
 </html>
