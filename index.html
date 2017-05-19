@@ -8,8 +8,37 @@
     <link rel="stylesheet" href="css/bootstrap.css"/>
     <script src="js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="css/main.css"/>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script type="javascript" src="js/main.js"></script>
+
+    <script>
+        $(document).ready(function() {
+            $('.scrollTo').click( function() { // Au clic sur un �l�ment
+                var section = $(this).attr('href'); // Page cible
+                var speed = 700; // Dur�e de l'animation (en ms)
+                $('html, body').animate( { scrollTop: $(section).offset().top }, speed ); // Go
+                return false;
+            });
+
+            $('.login').click(function(){
+                $('#login-screen').show();
+                $('#cover').show();
+
+            });
+
+            $('.cancel').click(function(){
+                $('#login-screen').hide();
+                $('#cover').hide();
+            });
+        });
+    </script>
 </head>
 <body>
+<div id="login-screen">
+    <a class="cancel">&times;</a>
+
+</div>
+<div id="cover" ></div>
 <nav class="navbar navbar-default navbar-fixed-top">
     <div class="container">
         <div class="menu right" id="menu">
@@ -17,9 +46,6 @@
                 <li><a class="scrollTo" id="animate1" href="#section1">home</a></li>
                 <li><a class="scrollTo" id="animate2" href="#section2">vue d'ensemble</a></li>
                 <li><a class="scrollTo" id="animate3" href="#section3" onclick="animatedevice()">mobile</a></li>
-                <li><a class="scrollTo" id="animate5" href="#section4">team</a></li>
-                <li><a class="scrollTo" id="animate6" href="#section5">prestations</a></li>
-                <li><a class="scrollTo" id="animate7" href="#section6">nous contacter</a></li>
                 <li><a class="login" id="login" href="#login">login</a></li>
             </ul>
         </div>
@@ -28,20 +54,30 @@
 
 <section id="section1" class="container-fluid background-section1">
     <div class="content" style="color:white">
-        Hello
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6 right">
+                    <button type="button" class="btn btn-primary btn-lg">S'inscrire</button>
+                </div>
+                <div class="col-lg-6">
+                    <button type="button" class="btn btn-primary btn-lg ">Se connecter</button>
+                </div>
+            </div>
+        </div>
+
     </div>
 
 </section><!-- /sectionWrapper -->
 
 <section id="section2" class="container-fluid background-section2">
-    <div class="content" style="color:white">
+    <div class="content container" style="color:white">
         Hello
     </div>
 
 </section><!-- /sectionWrapper -->
 
 <section id="section3" class="container-fluid background-section3">
-    <div class="content" style="color:white">
+    <div class="content container" style="color:white">
         Hello
     </div>
 
