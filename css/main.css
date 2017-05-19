@@ -16,26 +16,20 @@ section {
     height: 100vh;
 }
 
-.background-section1
+.background-section
 {
-    background: #de2c3c;
-    background: linear-gradient(135deg, #891f29 0%, #de2c3c 100%);
+    background: #6C1827;
     color: white;
 }
 
 .background-section2
 {
-    background: #092756;
-    color: black;
-    background: linear-gradient(to bottom, rgba(42,60,87,0.4), rgba(57,173,219,.25)), linear-gradient(225deg, #092756, #670d10);
+
+    color: white;
+    background: #9E373B ;
 }
 
-.background-section3
-{
-    background: #de2c3c;
-    background: linear-gradient(135deg, #891f29 0%, #de2c3c 100%);
-    color: white;
-}
+
 
 .navbar-default {
     background-color: transparent;
