@@ -48,7 +48,7 @@
 		public function getAllCoursesByTypeAndBehaviorAndCanton($type,$behavior,$canton){
 			$conn = $this->conn;
 			if($behavior==""){
-				$sql="SELECT *,T.name as TypeName,Tow.name as TownName  FROM course C
+				$sql="SELECT *,T.name as TypeName,Tow.name as TownName, B.name as BeName  FROM course C
 						INNER JOIN behavior B on B.idBehavior = C.idBehavior
 						INNER JOIN type T ON T.idType = B.idType
 						INNER JOIN user U on U.idUser = C.idTeacher
@@ -61,7 +61,7 @@
 					$stat->bindParam(":type",$type);
 					$stat->bindParam(":canton",$canton);
 				if($canton==""){
-					$sql="SELECT *,T.name as TypeName,Tow.name as TownName  FROM course C
+					$sql="SELECT *,T.name as TypeName,Tow.name as TownName, B.name as BeName  FROM course C
 						INNER JOIN behavior B on B.idBehavior = C.idBehavior
 						INNER JOIN type T ON T.idType = B.idType
 						INNER JOIN user U on U.idUser = C.idTeacher
@@ -73,7 +73,7 @@
 					$stat->bindParam(":type",$type);
 				}
 			}else if($canton==""){
-				$sql="SELECT *,T.name as TypeName,Tow.name as TownName FROM course C
+				$sql="SELECT *,T.name as TypeName,Tow.name as TownName, B.name as BeName FROM course C
 						INNER JOIN behavior B on B.idBehavior = C.idBehavior
 						INNER JOIN type T ON T.idType = B.idType
 						INNER JOIN user U on U.idUser = C.idTeacher
@@ -86,7 +86,7 @@
 				$stat->bindParam(":type",$type);
 				$stat->bindParam(":behavior",$behavior);
 			}else{
-				$sql="SELECT *,T.name as TypeName,Tow.name as TownName  FROM course C
+				$sql="SELECT *,T.name as TypeName,Tow.name as TownName, B.name as BeName  FROM course C
 						INNER JOIN behavior B on B.idBehavior = C.idBehavior
 						INNER JOIN type T ON T.idType = B.idType
 						INNER JOIN user U on U.idUser = C.idTeacher
