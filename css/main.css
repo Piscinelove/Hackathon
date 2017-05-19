@@ -32,7 +32,9 @@ section {
 
 .background-section3
 {
-
+    background: #de2c3c;
+    background: linear-gradient(135deg, #891f29 0%, #de2c3c 100%);
+    color: white;
 }
 
 .navbar-default {
