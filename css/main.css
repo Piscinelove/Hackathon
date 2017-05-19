@@ -32,7 +32,7 @@ section {
 
 
 .navbar-default {
-    background-color: transparent;
+    background-color: rgba(30,30,30,0.5);
     border-color:transparent;
 }
 
@@ -209,4 +209,52 @@ section {
     text-align:center;
     font-weight:bold;
     cursor:pointer;
+}
+
+.titre{
+    text-align: center ;
+    margin-bottom: 150px;
+    font-size: 40px;
+
+}
+
+textarea,input{
+    color: black !important;
+    margin-bottom: 30px;
+}
+
+input{
+    margin-bottom: 30px;
+
+}
+button{
+    background-color: #26A65B;
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+}
+
+img{
+    float: right;
+    max-width: 200px;
+    max-height: 200px;
+}
+
+.mainButton{
+    background-color: #26A65B;
+    border: none;
+    color: white;
+    padding: 20px 40px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 20px;
+    margin: 10px 50px;
+    cursor: pointer;
 }

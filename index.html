@@ -43,11 +43,15 @@
     <div class="container">
         <div class="menu right" id="menu">
             <ul>
-                <li><a class="scrollTo" id="animate1" href="#section1">home</a></li>
-                <li><a class="scrollTo" id="animate2" href="#section2">vue d'ensemble</a></li>
-                <li><a class="scrollTo" id="animate3" href="#section3" onclick="animatedevice()">mobile</a></li>
-                <li><a class="login" id="login" href="#login">login</a></li>
+                <li><a class="scrollTo" id="animate1" href="#section1">Accueil</a></li>
+                <li><a class="scrollTo" id="animate2" href="#section2">Description</a></li>
+                <li><a class="scrollTo" id="animate3" href="#section3" >Contact</a></li>
+                <li><a class="scrollTo" id="animate4" href="#section4" >Inscription</a></li>
+                <li><a class="login" id="login" href="#login">Connection</a></li>
             </ul>
+        </div>
+        <div class="row right">
+            <img src="media/logoWhite.png">
         </div>
     </div>
 </nav>
@@ -56,11 +60,17 @@
     <div class="content" >
         <div class="container">
             <div class="row">
+                <div class="col-lg-12">
+                    <h2 class="titre ">Viens partager tes connaissances</h2>
+                </div>
+
+            </div>
+            <div class="row">
                 <div class="col-lg-6 right">
-                    <button type="button" class="btn btn-primary btn-lg">S'inscrire</button>
+                    <button type="button" class="mainButton" >S'inscrire</button>
                 </div>
                 <div class="col-lg-6">
-                    <button type="button" class="btn btn-primary btn-lg ">Se connecter</button>
+                    <button type="button" class="mainButton">Se connecter</button>
                 </div>
             </div>
         </div>
@@ -70,15 +80,65 @@
 </section><!-- /sectionWrapper -->
 
 <section id="section2" class="container-fluid background-section2">
-    <div class="content container" >
-        Hello
+    <div class="content" >
+        <div class="container">
+       <div class="row">
+           <div class="col-lg-12">
+               <h2 class="titre ">Description</h2>
+           </div>
+       </div>
+        <div class="row">
+            <div class="col-lg-4">
+                <img src="media/apprentissage.png">
+            </div>
+            <div class="col-lg-4">
+                <img src="media/enseignement.png">
+            </div>
+            <div class="col-lg-4">
+                <img src="media/relation.png">
+            </div>
+        </div>
+    </div>
     </div>
 
 </section><!-- /sectionWrapper -->
 
 <section id="section3" class="container-fluid background-section">
     <div class="content container" >
-        Hello
+        <div class="row">
+            <div class="col-lg-12">
+                <h2 class="titre ">Contact</h2>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-3">
+            </div>
+            <div class="col-lg-6">
+                <div class="row">
+                    <div class="col-lg-6">
+                        <input class="form-control"  type="text" placeholder="Nom"  />
+                    </div>
+                    <div class="col-lg-6">
+                    <input  class="form-control" type="text" placeholder="E-mail"  />
+                    </div>
+                </div>
+                <div class="row ">
+                    <div class="col-lg-12">
+                        <textarea class="form-control" rows="10"></textarea>
+                    </div>
+
+                </div>
+                <div class="row right">
+                    <div class="col-lg-12">
+                        <button>Envoyer</button>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3">
+            </div>
+
+        </div>
+
     </div>
 
 </section><!-- /sectionWrapper -->
