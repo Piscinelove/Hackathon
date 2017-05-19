@@ -1,0 +1,12 @@
+#page-content-wrapper h3{
+	text-align: center;
+	margin-bottom: 20px;
+}
+#page-content-wrapper textarea{
+	resize: none;
+}
+.pSubmit{
+	text-align: center;
+	margin-top: 35px;
+
+}

@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="../libs/bootstrap.css" />
+    <link rel="stylesheet" href="../libs/bootstrap.min.css" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="../js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="../css/sidebar.css" />
+    
+    <script type="javascript" src="../js/main.js"></script>
+    <link rel="stylesheet" href="../css/createCourse.css">
+    <script>
+
+    $(document).ready(function() {
+        getMatiere();
+    });
+
+    function getMatiere(){
+        $.ajax({
+            url: '/php/traitement.php',
+            type: 'POST',
+            data: "getMatiere=getMatiere",
+            success : function(res){
+                res = JSON.parse(res);
+                alert(res);
+            }
+        })
+    }
+
+    function createCours(e){
+        var toSend = "";
+        $("#formCourse input").each(function(index, el) {
+            toSend+=el.attributes['name'].value+"="+el.value+"&";
+        });
+        $("#formCourse textarea").each(function(index, el) {
+            toSend+=el.attributes['name'].value+"="+el.value+"&";
+        });
+        $("#formCourse select").each(function(index, el) {
+            toSend+=el.attributes['name'].value+"="+el.value+"&";
+        });
+        toSend = toSend.slice(0,-1);
+        e.preventDefault();
+        $.ajax({
+            url: '/php/traitement.php',
+            type: 'POST',
+            data: toSend,
+            success : function(res){
+                alert(res);
+            }
+        })
+        
+    }
+    </script>
+</head>
+
+<body>
+    <div id="wrapper" class="toggled">
+        <!-- Sidebar -->
+        <div id="sidebar-wrapper">
+            <a class="cancel" id="menu-toggle">&times;</a>
+            <ul class="sidebar-nav">
+                <li class="sidebar-brand">
+                    <a href="#">
+                    Rafael Peixoto
+                </a>
+                </li>
+                <li>
+                    <a href="#" id="give-section1">Mon profil</a>
+                </li>
+                <li>
+                    <a href="#" id="give-section2">Donner un cours</a>
+                </li>
+                <li>
+                    <a href="#">Trouver un cours</a>
+                </li>
+                <li>
+                    <a href="#">Mes disponibilités</a>
+                </li>
+                <li>
+                    <a href="#">Créer un cours</a>
+                </li>
+            </ul>
+        </div>
+        <!-- /#sidebar-wrapper -->
+        <!-- Page Content -->
+        <div id="page-content-wrapper">
+            <h3 class="col-xs-12">Créer un cours</h3>
+            <form class="col-md-offset-2 col-md-8 col-xs-12" id="formCourse" onsubmit="createCours(event)">
+                <div class="form-group">
+                    <label for="typeCourse">Matière</label>
+                    <select class="form-control" id="typeCourse" name="typeCourse">
+                        <option disabled selected="selected">Matière</option>
+                        <option>1</option>
+                        <option>2</option>
+                        <option>3</option>
+                        <option>4</option>
+                        <option>5</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="descriptionCourse">Description</label>
+                    <textarea class="form-control" id="descriptionCourse" name="descriptionCourse" rows="3"></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="nbUsersCourse">Nombre de participants maximum</label>
+                    <input type="number" class="form-control" name="nbUsersCourse" id="nbUsersCourse" placeholder="Nombre">
+                </div>
+                <div class="form-group">
+                    <label for="behaviorCourse">Niveau</label>
+                    <select class="form-control" id="behaviorCourse" name="behaviorCourse">
+                        <option disabled selected="selected">Jusqu'où pouvez-vous enseigner ?</option>
+                        <option>1</option>
+                        <option>2</option>
+                        <option>3</option>
+                        <option>4</option>
+                        <option>5</option>
+                    </select>
+                </div>
+                <div class="form-group pSubmit">
+                    <button type="submit" class="btn btn-primary">Valider</button>
+                </div>
+            </form>
+        </div>
+        <!-- /#page-content-wrapper -->
+    </div>
+    <!-- /#wrapper -->
+    <script src="../js/bootstrap.min.js"></script>
+    <!-- Menu Toggle Script -->
+    <script>
+    $(".cancel").click(function(e) {
+        e.preventDefault();
+        $("#wrapper").toggleClass("toggled");
+    });
+
+    $("#give-section1").click(function(e) {
+        e.preventDefault();
+        $("#section2").hide();
+        $("#section1").show();
+    });
+
+    $("#give-section2").click(function(e) {
+        e.preventDefault();
+        $("#section1").hide();
+        $("#section2").show();
+    });
+    </script>
+</body>
+
+</html>
