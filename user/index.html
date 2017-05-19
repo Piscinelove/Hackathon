@@ -4,13 +4,86 @@
     <meta charset="UTF-8">
     <title>Title</title>
 
-    <link rel="stylesheet" href="css/bootstrap.css"/>
-    <script src="js/bootstrap.min.js"></script>
-    <link rel="stylesheet" href="css/main.css"/>
+    <link rel="stylesheet" href="../css/bootstrap.css"/>
+    <link rel="stylesheet" href="../css/bootstrap.min.css"/>
+    <script src="../js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="../css/sidebar.css"/>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <script type="javascript" src="js/main.js"></script>
-</head>
-<body>
+    <script type="javascript" src="../js/main.js"></script>
 
+
+</head>
+
+
+<body>
+<div id="wrapper" class="toggled">
+
+    <!-- Sidebar -->
+    <div id="sidebar-wrapper">
+        <a class="cancel" id="menu-toggle">&times;</a>
+        <ul class="sidebar-nav">
+            <li class="sidebar-brand">
+                <a href="#">
+                    Rafael Peixoto
+                </a>
+            </li>
+            <li>
+                <a href="#">Mon profile</a>
+            </li>
+            <li>
+                <a href="#" id="give">Donner un cours</a>
+            </li>
+            <li>
+                <a href="#">Trouver un cours</a>
+            </li>
+            <li>
+                <a href="#">Mes disponibilités</a>
+            </li>
+        </ul>
+    </div>
+    <!-- /#sidebar-wrapper -->
+
+    <!-- Page Content -->
+    <div id="page-content-wrapper">
+        <section id="section1">
+            <div class="container-fluid">
+                <div class="row">
+                    SECTION 1
+                </div>
+            </div>
+        </section>
+
+        <section id="section2" style="display: none">
+            <div class="container-fluid">
+                <div class="row">
+                    SECTION 2
+                </div>
+            </div>
+        </section>
+    </div>
+    <!-- /#page-content-wrapper -->
+
+
+</div>
+<!-- /#wrapper -->
+<script src="../js/bootstrap.min.js"></script>
+<!-- Menu Toggle Script -->
+<script>
+
+    $("#menu-toggle").click(function(e) {
+        e.preventDefault();
+        $("#wrapper").toggleClass("toggled");
+    });
+
+    $("#give").click(function(e) {
+        e.preventDefault();
+        $("#section1").hide();
+        $("#section2").show();
+    });
+
+
+
+
+</script>
 </body>
 </html>
