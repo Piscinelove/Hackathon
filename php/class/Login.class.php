@@ -34,6 +34,7 @@
 			$temp = $stat->fetch(PDO::FETCH_LAZY);
 			if(isset($temp['password']) && $temp['password']==$pass){
 				$_SESSION['idUser'] = $temp['idUser'];
+				$_SESSION['userType'] = $temp['userType'];
 				return 'ok';
 			}
 			return 'ko';
