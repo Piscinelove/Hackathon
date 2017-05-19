@@ -1,6 +1,7 @@
 <?php
-	session_start();
+	
 	require("loader.php");
+	session_start();
 
 	//var_dump($_POST);
 
@@ -9,6 +10,12 @@
 		echo $conn->addUser($_POST['lastname'],$firstname,$mail,$description,$userType,$phone,$gender,$token,$idTown);
 	}else if(isset($_POST['example'])&&$_POST['example']!=""){
 		echo 'ca marche :'.$_POST['example'];
+	}
+
+	//personne
+	else if(isset($_POST['username'])&&$_POST['username']!=""){
+			$conn = Load::load("Login");
+			echo $conn->login($_POST['username'],$_POST['password']);
 	}
 
 	//course
@@ -25,7 +32,13 @@
 	//get all course for current teacher MADE BY ALEKS A VERIFIER BY MAX
 	else if(isset($_POST['getAllCourse'])&&$_POST['getAllCourse']=="getAllCourse"){
 			$conn = Load::load("Course");
-			echo json_encode($conn->getAllCoursesGivenByIdUser(1));
+			echo json_encode($conn->getAllCoursesGivenByIdUser($_SESSION['idUser']));
+	}
+	
+	//get all course for current student MADE BY ALEKS A VERIFIER BY MAX
+	else if(isset($_POST['getAllLearnings'])&&$_POST['getAllLearnings']=="getAllLearnings"){
+			$conn = Load::load("Course");
+			echo json_encode($conn->getAllCoursesReceiveByIdUser($_SESSION['idUser']));
 	}
 
 	// Type
@@ -41,8 +54,8 @@
 	}
 
 	//ville
-	else if(isset($_POST['getVille'])&&$_POST['getVille']=="getVille"){
-		$conn = Load::load("Town");
-		echo json_encode($conn->getAllTown());
+	else if(isset($_POST['getCanton'])&&$_POST['getCanton']=="getCanton"){
+		$conn = Load::load("Canton");
+		echo json_encode($conn->getAllCantons());
 	}
 ?>

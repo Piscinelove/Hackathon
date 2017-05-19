@@ -1,20 +1,23 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
-    <link rel="stylesheet" href="../libs/bootstrap.css" />
-    <link rel="stylesheet" href="../libs/bootstrap.min.css" />
-    <script src="../js/bootstrap.min.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <link rel="stylesheet" href="../css/sidebar.css" />
-    <link rel="stylesheet" href="../css/findCourse.css" />
-    <script type="javascript" src="../js/main.js"></script>
-    <script>
+    <title>Appui-on</title>
+
+	<!-- STYLES -->
+    <link rel="stylesheet" href="../libs/bootstrap.min.css"/>
+    <link rel="stylesheet" href="../libs/bootstrap-theme.min.css"/>
+    <link rel="stylesheet" href="../css/sidebar.css"/>
+    <link rel="stylesheet" href="../css/findCourse.css"/>
+	
+	<!-- SCRIPTS -->
+    <script type="text/javascript" src="../js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../js/jquery.js"></script>
+    <script type="text/javascript" src="../js/main.js"></script>	
+	<script>
     $(document).ready(function() {
         getMatiere();
-        getVille();
+        getCanton();
     });
 
     function getMatiere() {
@@ -57,16 +60,33 @@
         showResult();
     }
 
-    function getVille() {
+    function getCanton() {
         $.ajax({
             url: '/php/traitement.php',
             type: 'POST',
-            data: "getVille=getVille",
+            data: "getCanton=getCanton",
             success: function(res) {
                 res = JSON.parse(res);
                 var txt = "";
                 for (i = 0; i < res.length; i++) {
-                    txt += '<li onclick="showVille(' + res[i]['idTown'] + ',\'' + res[i]['name'] + '\')"><a>' + res[i]['name'] + '</a></li>';
+                    txt += '<li onclick="showVille(' + res[i]['idCanton'] + ',\'' + res[i]['name'] + '\')"><a>' + res[i]['name'] + '</a></li>';
+                }
+                document.getElementById('villeCourse').innerHTML = txt;
+
+            }
+        })
+    }
+
+    function getCourseById(id) {
+        $.ajax({
+            url: '/php/traitement.php',
+            type: 'POST',
+            data: "getCanton=getCanton",
+            success: function(res) {
+                res = JSON.parse(res);
+                var txt = "";
+                for (i = 0; i < res.length; i++) {
+                    txt += '<li onclick="showVille(' + res[i]['idCanton'] + ',\'' + res[i]['name'] + '\')"><a>' + res[i]['name'] + '</a></li>';
                 }
                 document.getElementById('villeCourse').innerHTML = txt;
 
@@ -102,6 +122,7 @@
                 for (i = 0; i < res.length; i++) {
                     txt += '<div class="row">'+
                         '<ul class="list-group">'+
+							'<a href="/user/course.php?id='+res[i]['idCourse']+'">'+
                             '<li class="list-group-item ">'+
                                 '<div class="row">'+
                                     '<div class="col-lg-1">'+
@@ -110,17 +131,18 @@
                                     '<div class="col-lg-7">'+
                                         '<div class="col-lg-12">'+
                                             '<h3>'+res[i]['TypeName']+'</h3>'+
-                                            '<h4>Je suis un enseignant</h4>'+
-                                            '<h4>Nom Prenom</h4>'+
+                                            '<h4>Je suis un '+res[i]['iam']+' ('+res[i]['TownName']+')</h4>'+
+                                            '<h4>'+res[i]['lastname']+' '+res[i]['firstname']+'</h4>'+
                                         '</div>'+
                                     '</div>'+
                                     '<div class="col-lg-4">'+
                                         '<p>'+
-                                            'Description...'+
+                                            ''+res[i]['description']+''+
                                         '</p>'+
                                     '</div>'+
                                 '</div>'+
                             '</li>'+
+
                         '</ul>'+
                     '</div>';
                 }
@@ -134,95 +156,91 @@
 
 <body>
     <div id="wrapper" class="toggled">
-        <!-- Sidebar -->
-        <div id="sidebar-wrapper">
-            <a class="cancel" id="menu-toggle">&times;</a>
-            <ul class="sidebar-nav">
-                <li class="sidebar-brand">
-                    <a href="#">
-                    Rafael Peixoto
-                </a>
-                </li>
-                <li>
-                    <a href="#section1">Mon profil</a>
-                </li>
-                <li>
-                    <a href="#" id="give">Donner un cours</a>
-                </li>
-                <li>
-                    <a href="#">Trouver un cours</a>
-                </li>
-                <li>
-                    <a href="#">Mes disponibilités</a>
-                </li>
-            </ul>
-        </div>
-        <!-- /#sidebar-wrapper -->
-        <!-- Page Content -->
-        <div id="page-content-wrapper">
-            <div class="container-fluid">
-                <div class="row">
-                    <div class="col-lg-2">
-                        <div class="dropdown">
-                            <button class="btn btn-default dropdown-toggle form-control filtre" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                                <span>Matière</span>
-                                <span class="caret"></span>
-                            </button>
-                            <ul class="dropdown-menu" id="typeCourse" aria-labelledby="dropdownMenu1">
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="col-lg-2">
-                        <div class="dropdown">
-                            <button class="btn btn-default dropdown-toggle form-control filtre" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                                <span>Lvl</span>
-                                <span class="caret"></span>
-                            </button>
-                            <ul class="dropdown-menu" aria-labelledby="dropdownMenu2" id="behaviorCourse">
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="col-lg-2">
-                        <div class="dropdown">
-                            <button class="btn btn-default dropdown-toggle form-control filtre" type="button" id="dropdownMenu3" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                                <span>Ville</span>
-                                <span class="caret"></span>
-                            </button>
-                            <ul class="dropdown-menu" aria-labelledby="dropdownMenu3" id="villeCourse">
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-                <div id="contentSearch">
-                    <div class="row">
-                        <ul class="list-group">
-                            <li class="list-group-item ">
-                                <div class="row">
-                                    <div class="col-lg-1">
-                                        <img class="img-responsive" src="../media/blackboard.png">
-                                    </div>
-                                    <div class="col-lg-7">
-                                        <div class="col-lg-12">
-                                            <h3>Titre</h3>
-                                            <h4>Je suis un enseignant</h4>
-                                            <h4>Nom Prenom</h4>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-4">
-                                        <p>
-                                            Description...
-                                        </p>
-                                    </div>
-                                </div>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- /#page-content-wrapper -->
+    <!-- Sidebar -->
+    <div id="sidebar-wrapper">
+        <ul class="sidebar-nav">
+            <li class="sidebar-brand">
+                <a id="menu-toggle" href="#">Menu <span id="main_icon" class="glyphicon glyphicon-menu-hamburger"></span></a>
+            <li>
+				<a href="profil.html">Mon profil <span class="sub_icon glyphicon glyphicon-link"></span></a>
+			</li>
+			<li>
+				<a href="learnings.html">Mes apprentissages <span class="sub_icon glyphicon glyphicon-link"></span></a>
+			</li>
+			<li>
+				<a href="teachings.html">Mes enseignements <span class="sub_icon glyphicon glyphicon-link"></span></a>
+			</li>
+			<li>
+				<a href="disponibilities.html">Mes disponibilités <span class="sub_icon glyphicon glyphicon-link"></span></a>
+			</li>
+			<li>
+				<a href="findCourse.html">Trouver un cours <span class="sub_icon glyphicon glyphicon-link"></span></a>
+			</li>
+			<li>
+				<a href="createCourse.html">Créer un cours <span class="sub_icon glyphicon glyphicon-link"></span></a>
+			</li>
+			<!--<?php /*
+					$page = $_GET['page'];
+					
+					echo '
+					<li ';if($page =='home'){ echo 'class="active"';} echo '><a href="'.LINK_HOME.'"><span class="glyphicon glyphicon-home"></span> <span class="hidden-xs">Accueil</span></a></li>
+					<li ';if($page =='film'){ echo 'class="active"';} echo '><a href="'.LINK_FILM.'"><span class="glyphicon glyphicon-film"></span> <span class="hidden-xs">Films</span></a></li>
+					<li ';if($page =='serie'){ echo 'class="active"';} echo '><a href="'.LINK_SERIE.'"><span class="glyphicon glyphicon-inbox"></span> <span class="hidden-xs">Séries</span></a></li>
+					<li ';if($page =='profil'){ echo 'class="active"';} echo '><a href="'.LINK_PROFIL.'"><span class="glyphicon glyphicon-wrench"></span> <span class="hidden-xs">Profil</span></a></li>';
+					if($_SESSION['role'] == 1) {
+						echo '
+						<li ';if($page =='user'){ echo 'class="active"';} echo '><a href="'.LINK_USER.'"><span class="glyphicon glyphicon-user"></span> <span class="hidden-xs">Utilisateurs</span></a></li>';
+					}
+					//<li ';if($page =='music'){ echo 'class="active"';} echo '><a href="'.LINK_MUSIC.'"><span class="glyphicon glyphicon-headphones"></span> <span class="hidden-xs">Musiques</span></a></li>';
+			*/	?>-->
+        </ul>
     </div>
-    <!-- /#wrapper -->
+    <!-- /#sidebar-wrapper -->
+	<!-- Page Content -->
+	<div id="page-content-wrapper">
+		<div class="container-fluid">
+			<div class="row">
+				<div class="col-lg-2">
+					<div class="dropdown">
+						<button class="btn btn-default dropdown-toggle form-control filtre" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+							<span>Matière</span>
+							<span class="caret"></span>
+						</button>
+						<ul class="dropdown-menu" id="typeCourse" aria-labelledby="dropdownMenu1">
+						</ul>
+					</div>
+				</div>
+				<div class="col-lg-2">
+					<div class="dropdown">
+						<button class="btn btn-default dropdown-toggle form-control filtre" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+							<span>Lvl</span>
+							<span class="caret"></span>
+						</button>
+						<ul class="dropdown-menu" aria-labelledby="dropdownMenu2" id="behaviorCourse">
+						</ul>
+					</div>
+				</div>
+				<div class="col-lg-2">
+					<div class="dropdown">
+						<button class="btn btn-default dropdown-toggle form-control filtre" type="button" id="dropdownMenu3" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+							<span>Ville</span>
+							<span class="caret"></span>
+						</button>
+						<ul class="dropdown-menu" aria-labelledby="dropdownMenu3" id="villeCourse">
+						</ul>
+					</div>
+				</div>
+			</div>
+			<div id="contentSearch">
+				<div class="row">
+					Selectionnez un matière
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- /#page-content-wrapper -->
+</div>
+<!-- /#wrapper -->
     <script src="../js/bootstrap.min.js"></script>
     <!-- Menu Toggle Script -->
     <script>

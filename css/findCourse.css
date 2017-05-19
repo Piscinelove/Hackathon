@@ -6,4 +6,5 @@
     margin: 0 0;
     font-size: large;
     font-weight: bold;
+    overflow: hidden;
 }

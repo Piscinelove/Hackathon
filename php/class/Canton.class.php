@@ -26,6 +26,13 @@
 			$stat->execute();
 		}
 
+		public function getAllCantons(){
+			$conn = $this->conn;
+			$sql="SELECT * FROM canton";
+			$stat = $conn->prepare($sql);
+			$stat->execute();
+			return $stat->fetchAll(PDO::FETCH_ASSOC);
+		}
 		public function getCantonByIdUser($idUser){
 			$conn = $this->conn;
 			$sql="SELECT ca.Canton, ca.name

@@ -23,17 +23,17 @@
 			$sql="DELETE FROM login WHERE idLogin=:idLogin";
 			$stat = $conn->prepare($sql);
 			$stat->bindParam(":idLogin",$idLogin);
-			$conn->execute();
+			$stat->execute();
 		}
 		public function login($username,$pass){
 			$conn = $this->conn;
 			$sql="SELECT * FROM login WHERE username = :username ";
-			$stat = $conn->preapre($sql);
+			$stat = $conn->prepare($sql);
 			$stat->bindParam(":username",$username);
-			$conn->execute();
+			$stat->execute();
 			$temp = $stat->fetch(PDO::FETCH_LAZY);
 			if(isset($temp['password']) && $temp['password']==$pass){
-				$_SESSION['idUser'] = $temp['idUser'];
+				$_SESSION['idUser'] = $temp['idLogin'];
 				$_SESSION['userType'] = $temp['userType'];
 				return 'ok';
 			}

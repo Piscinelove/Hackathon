@@ -26,19 +26,51 @@
 
             });
 
+            $('.connect').click(function(){
+                $('#login-screen').show();
+                $('#cover').show();
+
+            });
+
+
             $('.cancel').click(function(){
                 $('#login-screen').hide();
                 $('#cover').hide();
             });
         });
+        function logined(e){
+            e.preventDefault();
+            var user = document.getElementById('user').value;
+            var pass = document.getElementById('password').value;
+            $.ajax({
+                url: '/php/traitement.php',
+                type: 'POST',
+                data: "username="+user+"&password="+pass,
+                success:function(res){
+                    if(res=='ok'){
+                        window.location = "/user";
+                    }
+                }
+            })
+            
+        }
     </script>
 </head>
 <body>
 <div id="login-screen">
-    <a class="cancel">&times;</a>
-
+    <div class="frame">
+        <a class="cancel">&times;</a>
+       <div class="row">
+           <form onsubmit="logined(event)">
+               <input type="text" name="user" id="user" placeholder="Username">
+               <input type="password" name="password" id="password" placeholder="Password">
+               <input type="submit" name="login" class="login" value="Login">
+           </form>
+       </div>
+    </div>
 </div>
 <div id="cover" ></div>
+
 <nav class="navbar navbar-default navbar-fixed-top">
     <div class="container">
         <div class="menu right" id="menu">
@@ -46,13 +78,12 @@
                 <li><a class="scrollTo" id="animate1" href="#section1">Accueil</a></li>
                 <li><a class="scrollTo" id="animate2" href="#section2">Description</a></li>
                 <li><a class="scrollTo" id="animate3" href="#section3" >Contact</a></li>
-                <li><a class="scrollTo" id="animate4" href="#section4" >Inscription</a></li>
-                <li><a class="login" id="login" href="#login">Connection</a></li>
+                <li><a class="login" id="login" href="#login">Connexion</a></li>
             </ul>
         </div>
         <div class="row" >
             <img  id="icon" src="media/logoWhite.png">
-        </div>
+        </div>  
     </div>
 </nav>
 
@@ -65,7 +96,7 @@
                 </div>
             </div>
             <div class="row">
-                    <svg version="1.1" id="logo" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"viewBox="31 147.7 342.5 236" style="enable-background:new 31 147.7 342.5 236;" xml:space="preserve">
+                    <svg version="1.1" id="logo" class="draw" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"viewBox="31 147.7 342.5 236" style="enable-background:new 31 147.7 342.5 236;" xml:space="preserve">
                         <style type="text/css">
                             .st0{fill:#FFFFFF;}
                         </style>
@@ -92,7 +123,7 @@
                     <button type="button" class="mainButton" >S'inscrire</button>
                 </div>
                 <div class="col-lg-6">
-                    <button type="button" class="mainButton">Se connecter</button>
+                    <button type="button" class="mainButton connect">Se connecter</button>
                 </div>
             </div>
         </div>
@@ -192,6 +223,9 @@
 </section><!-- /sectionWrapper -->
 
 <footer >
+    <div id="hello">
+        ciao
+    </div>
     <div class="container">
         <div class=" row">
             made with <span class="heart heartbeat">&#9825;</span> in switzerland
@@ -199,6 +233,5 @@
     </div>
 
 </footer>
-
 </body>
 </html>

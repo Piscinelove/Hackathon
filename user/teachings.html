@@ -2,153 +2,131 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Appui-on</title>
 
-    <link rel="stylesheet" href="../libs/bootstrap.css"/>
+	<!-- STYLES -->
     <link rel="stylesheet" href="../libs/bootstrap.min.css"/>
-    <script src="../js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="../libs/bootstrap-theme.min.css"/>
     <link rel="stylesheet" href="../css/sidebar.css"/>
-    <link rel="stylesheet" href="../css/findCourse.css"/>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <script type="javascript" src="../js/main.js"></script>
+    <link rel="stylesheet" href="../css/main.css"/>
 
-
+	<!-- SCRIPTS -->
+    <script type="text/javascript" src="../js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../js/jquery.js"></script>
+    <script type="text/javascript" src="../js/main.js"></script>
 </head>
+
+<script>
+
+    $(document).ready(function() {
+        getAllCourse();
+    });
+
+        function getAllCourse(){
+
+     $.ajax({
+            url: '/php/traitement.php',
+            type: 'POST',
+            data: "getAllCourse=getAllCourse",
+            success : function(res){
+
+                res = JSON.parse(res);
+
+                var txt="";
+
+                for(i=0;i<res.length;i++){
+
+                    txt += '<div class="row">'+
+                        '<ul class="list-group">'+
+                            '<li class="list-group-item ">'+
+                                '<div class="row">'+
+                                    '<div class="col-lg-1">'+
+                                        '<img class="img-responsive" src="../media/blackboard.png">'+
+                                    '</div>'+
+                                    '<div class="col-lg-7">'+
+                                        '<div class="col-lg-12">'+
+                                            '<h4>'+res[i]['TypeName']+'</h4>'+
+                                            '<h4>'+res[i]['description']+'</h4>'+
+                                            '<h5>Nombre d\'utilisateurs : '+res[i]['nbUsers']+'</h5>'+
+                                        '</div>'+
+                                    '</div>'+
+                                    '<div class="col-lg-4">'+
+                                        '<div>' +
+                                            '<img src="../media/delete.png" />'+
+                                        '</div>'+
+                                    '</div>'+
+                                '</div>'+
+                            '</li>'+
+                        '</ul>'+
+                    '</div>';
+                }
+                document.getElementById('test').innerHTML = txt;
+            }
+        })
+ }
+</script>
 
 
 <body>
 <div id="wrapper" class="toggled">
 
+
     <!-- Sidebar -->
     <div id="sidebar-wrapper">
-        <a class="cancel" id="menu-toggle">&times;</a>
         <ul class="sidebar-nav">
             <li class="sidebar-brand">
-                <a href="#">
-                    Rafael Peixoto
-                </a>
-            </li>
+                <a id="menu-toggle" href="#">Menu <span id="main_icon" class="glyphicon glyphicon-menu-hamburger"></span></a>
             <li>
-                <a href="#section1">Mon profil</a>
-            </li>
-            <li>
-                <a href="#" id="give">Donner un cours</a>
-            </li>
-            <li>
-                <a href="#">Trouver un cours</a>
-            </li>
-            <li>
-                <a href="#">Mes disponibilités</a>
-            </li>
+				<a href="profil.html">Mon profil <span class="sub_icon glyphicon glyphicon-link"></span></a>
+			</li>
+			<li>
+				<a href="learnings.html">Mes apprentissages <span class="sub_icon glyphicon glyphicon-link"></span></a>
+			</li>
+			<li>
+				<a href="teachings.html">Mes enseignements <span class="sub_icon glyphicon glyphicon-link"></span></a>
+			</li>
+			<li>
+				<a href="disponibilities.html">Mes disponibilit�s <span class="sub_icon glyphicon glyphicon-link"></span></a>
+			</li>
+			<li>
+				<a href="findCourse.html">Trouver un cours <span class="sub_icon glyphicon glyphicon-link"></span></a>
+			</li>
+			<li>
+				<a href="createCourse.html">Cr�er un cours <span class="sub_icon glyphicon glyphicon-link"></span></a>
+			</li>
+			<!--<?php /*
+					$page = $_GET['page'];
+
+					echo '
+					<li ';if($page =='home'){ echo 'class="active"';} echo '><a href="'.LINK_HOME.'"><span class="glyphicon glyphicon-home"></span> <span class="hidden-xs">Accueil</span></a></li>
+					<li ';if($page =='film'){ echo 'class="active"';} echo '><a href="'.LINK_FILM.'"><span class="glyphicon glyphicon-film"></span> <span class="hidden-xs">Films</span></a></li>
+					<li ';if($page =='serie'){ echo 'class="active"';} echo '><a href="'.LINK_SERIE.'"><span class="glyphicon glyphicon-inbox"></span> <span class="hidden-xs">S�ries</span></a></li>
+					<li ';if($page =='profil'){ echo 'class="active"';} echo '><a href="'.LINK_PROFIL.'"><span class="glyphicon glyphicon-wrench"></span> <span class="hidden-xs">Profil</span></a></li>';
+					if($_SESSION['role'] == 1) {
+						echo '
+						<li ';if($page =='user'){ echo 'class="active"';} echo '><a href="'.LINK_USER.'"><span class="glyphicon glyphicon-user"></span> <span class="hidden-xs">Utilisateurs</span></a></li>';
+					}
+					//<li ';if($page =='music'){ echo 'class="active"';} echo '><a href="'.LINK_MUSIC.'"><span class="glyphicon glyphicon-headphones"></span> <span class="hidden-xs">Musiques</span></a></li>';
+			*/	?>-->
         </ul>
     </div>
     <!-- /#sidebar-wrapper -->
 
-
-
     <!-- Page Content -->
     <div id="page-content-wrapper">
-
-            <h3>Mes enseignements</h3>
-
         <div class="container-fluid">
-
-
-
-            <div class="row">
-                <ul class="list-group">
-                    <li class="list-group-item ">
-                        <div class="row">
-                            <div class="col-lg-1">
-                                <img class="img-responsive" src="../media/blackboard.png">
-                            </div>
-                            <div class="col-lg-7">
-                                <div class="col-lg-12">
-                                    <h3>Titre</h3>
-                                    <h4>Je suis un enseignant</h4>
-                                    <h4>Nom Prenom</h4>
-                                </div>
-
-                            </div>
-                            <div class="col-lg-4">
-                                <p>
-                                    Description...
-                                </p>
-
-                            </div>
-                        </div>
-                    </li>
-                </ul>
-                <ul class="list-group">
-                    <li class="list-group-item">
-                        <div class="row">
-                            <div class="col-lg-1">
-                                <img class="img-responsive" src="../media/blackboard.png">
-                            </div>
-                            <div class="col-lg-7">
-                                <div class="col-lg-12">
-                                    <h3>Titre</h3>
-                                    <h4>Je suis un enseignant</h4>
-                                    <h4>Nom Prenom</h4>
-                                </div>
-
-                            </div>
-                            <div class="col-lg-4">
-                                <p>
-                                    Description...
-                                </p>
-
-                            </div>
-                        </div>
-                    </li>
-                </ul>
-                <ul class="list-group">
-                    <li class="list-group-item">
-                        <div class="row">
-                            <div class="col-lg-1">
-                                <img class="img-responsive" src="../media/blackboard.png">
-                            </div>
-                            <div class="col-lg-7">
-                                <div class="col-lg-12">
-                                    <h3>Titre</h3>
-                                    <h4>Je suis un enseignant</h4>
-                                    <h4>Nom Prenom</h4>
-                                </div>
-
-                            </div>
-                            <div class="col-lg-4">
-                                <p>
-                                    Description...
-                                </p>
-
-                            </div>
-                        </div>
-                    </li>
-                </ul>
-            </div>
+        <div class="row">
+            <h3 id="titleEnseignement">Mes enseignements</h3>
         </div>
+
+        <div class="row" id="test">
+        </div>
+    </div>
     </div>
     <!-- /#page-content-wrapper -->
 
 
 </div>
 <!-- /#wrapper -->
-<script src="../js/bootstrap.min.js"></script>
-<!-- Menu Toggle Script -->
-<script>
-
-    $(".cancel").click(function (e) {
-        e.preventDefault();
-        $("#wrapper").toggleClass("toggled");
-    });
-
-    $("#").click(function (e) {
-        e.preventDefault();
-        $("#section1").hide();
-        $("#section2").show();
-    });
-
-
-</script>
 </body>
 </html>

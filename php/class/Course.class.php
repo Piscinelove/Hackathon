@@ -35,18 +35,20 @@
 		//part max
 		public function getCourseById($idCourse){
 			$conn = $this->conn;
-			$sql="SELECT * FROM course C
+			$sql="SELECT *,C.description as cDescription, T.name as TypeName FROM course C
 						INNER JOIN behavior B on C.idBehavior = B.idBehavior
 						INNER JOIN type T on T.idType = B.idType
+						INNER JOIN user U on U.idUser = C.idTeacher
 					WHERE C.idCourse = :idCourse";
 			$stat=  $conn->prepare($sql);
 			$stat->bindParam(":idCourse",$idCourse);
 			$stat->execute();
+			return $stat->fetch(PDO::FETCH_LAZY);
 		}
 		public function getAllCoursesByTypeAndBehaviorAndCanton($type,$behavior,$canton){
 			$conn = $this->conn;
 			if($behavior==""){
-				$sql="SELECT *,T.name as TypeName  FROM course C
+				$sql="SELECT *,T.name as TypeName,Tow.name as TownName  FROM course C
 						INNER JOIN behavior B on B.idBehavior = C.idBehavior
 						INNER JOIN type T ON T.idType = B.idType
 						INNER JOIN user U on U.idUser = C.idTeacher
@@ -59,7 +61,7 @@
 					$stat->bindParam(":type",$type);
 					$stat->bindParam(":canton",$canton);
 				if($canton==""){
-					$sql="SELECT *,T.name as TypeName  FROM course C
+					$sql="SELECT *,T.name as TypeName,Tow.name as TownName  FROM course C
 						INNER JOIN behavior B on B.idBehavior = C.idBehavior
 						INNER JOIN type T ON T.idType = B.idType
 						INNER JOIN user U on U.idUser = C.idTeacher
@@ -71,7 +73,7 @@
 					$stat->bindParam(":type",$type);
 				}
 			}else if($canton==""){
-				$sql="SELECT *,T.name as TypeName FROM course C
+				$sql="SELECT *,T.name as TypeName,Tow.name as TownName FROM course C
 						INNER JOIN behavior B on B.idBehavior = C.idBehavior
 						INNER JOIN type T ON T.idType = B.idType
 						INNER JOIN user U on U.idUser = C.idTeacher
@@ -84,7 +86,7 @@
 				$stat->bindParam(":type",$type);
 				$stat->bindParam(":behavior",$behavior);
 			}else{
-				$sql="SELECT *,T.name as TypeName  FROM course C
+				$sql="SELECT *,T.name as TypeName,Tow.name as TownName  FROM course C
 						INNER JOIN behavior B on B.idBehavior = C.idBehavior
 						INNER JOIN type T ON T.idType = B.idType
 						INNER JOIN user U on U.idUser = C.idTeacher
@@ -107,8 +109,9 @@
 		}
 		public function getAllCoursesGivenByIdUser($idUser){
 			$conn = $this->conn;
-			$sql="SELECT * FROM courseUser CU 
+			$sql="SELECT *, T.name AS TypeName, u.lastname AS lastname, u.firstname AS firstname FROM courseUser CU 
 					INNER JOIN course C ON C.idCourse = CU.idCourse
+					INNER JOIN user u ON u.idUser = C.idTeacher
 					INNER JOIN behavior B on C.idBehavior = B.idBehavior
 					INNER JOIN type T on T.idType = B.idType
 				WHERE C.idTeacher = :idUser
@@ -120,8 +123,9 @@
 		}
 		public function getAllCoursesReceiveByIdUser($idUser){
 			$conn = $this->conn;
-			$sql="SELECT * FROM courseUser CU 
+			$sql="SELECT *, T.name AS TypeName, u.lastname AS lastname, u.firstname AS firstname FROM courseUser CU 
 					INNER JOIN course C ON C.idCourse = CU.idCourse
+					INNER JOIN user u ON u.idUser = C.idTeacher
 					INNER JOIN behavior B on C.idBehavior = B.idBehavior
 					INNER JOIN type T on T.idType = B.idType
 				WHERE CU.idUser = :idUser
