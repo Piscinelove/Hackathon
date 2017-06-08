@@ -109,7 +109,7 @@
 		}
 		public function getAllCoursesGivenByIdUser($idUser){
 			$conn = $this->conn;
-			$sql="SELECT *, T.name AS TypeName, u.lastname AS lastname, u.firstname AS firstname FROM courseUser CU 
+			$sql="SELECT *, T.name AS TypeName, u.lastname AS lastname, u.firstname AS firstname, C.description as descr FROM courseUser CU 
 					INNER JOIN course C ON C.idCourse = CU.idCourse
 					INNER JOIN user u ON u.idUser = C.idTeacher
 					INNER JOIN behavior B on C.idBehavior = B.idBehavior
@@ -123,7 +123,7 @@
 		}
 		public function getAllCoursesReceiveByIdUser($idUser){
 			$conn = $this->conn;
-			$sql="SELECT *, T.name AS TypeName, u.lastname AS lastname, u.firstname AS firstname FROM courseUser CU 
+			$sql="SELECT *, T.name AS TypeName, u.lastname AS lastname, u.firstname AS firstname, C.description as descr FROM courseUser CU 
 					INNER JOIN course C ON C.idCourse = CU.idCourse
 					INNER JOIN user u ON u.idUser = C.idTeacher
 					INNER JOIN behavior B on C.idBehavior = B.idBehavior

@@ -46,7 +46,7 @@
                                     '<div class="col-lg-7">'+
                                         '<div class="col-lg-12">'+
                                             '<h4>'+res[i]['TypeName']+'</h4>'+
-                                            '<h4>'+res[i]['description']+'</h4>'+
+                                            '<h4>'+res[i]['descr']+'</h4>'+
                                             '<h5>Nombre d\'utilisateurs : '+res[i]['nbUsers']+'</h5>'+
                                         '</div>'+
                                     '</div>'+
